@@ -204,7 +204,24 @@ class Auth extends MYB_Controller
 			$data['use_username'] = $use_username;
 			$data['captcha_registration'] = $captcha_registration;
 			$data['use_recaptcha'] = $use_recaptcha;
-			$this->load->view('auth/register_form', $data);
+
+            //Removing default tankauth view in favour of KTemplate and default template.
+			//$this->load->view('auth/login_form', $data);
+
+            //Managing template
+            //Setting template. Ideally not needed as we are setting default template.
+            $this->setTemplate('charisma');
+            //Set Layout
+            $this->setLayout('login');
+
+            $this->setTemplateData($data);
+            $this->setTemplateData('title','Set From controller');
+
+            $this->renderPlaceHolder('content','auth/register');
+
+            $this->addCSS(Array('bootstrap-responsive','bootstrap-cerulean','charisma-app'));
+
+            $this->render();
 		}
 	}
 
