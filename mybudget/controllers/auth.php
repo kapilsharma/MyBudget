@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class Auth extends MYB_Controller
 {
 	function __construct()
 	{
@@ -92,7 +92,23 @@ class Auth extends CI_Controller
 					$data['captcha_html'] = $this->_create_captcha();
 				}
 			}
-			$this->load->view('auth/login_form', $data);
+			//Removing default tankauth view in favour of KTemplate and default template.
+			//$this->load->view('auth/login_form', $data);
+
+            //Managing template
+            //Setting template. Ideally not needed as we are setting default template.
+            $this->setTemplate('charisma');
+            //Set Layout
+            $this->setLayout('login');
+
+            $this->setTemplateData($data);
+            $this->setTemplateData('title','Set From controller');
+
+            $this->renderPlaceHolder('content','auth/login');
+
+            $this->addCSS(Array('bootstrap-responsive','bootstrap-cerulean','charisma-app'));
+
+            $this->render();
 		}
 	}
 
